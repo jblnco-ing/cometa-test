@@ -1,4 +1,5 @@
 // components
+import { TotalPayment } from "components/molecule/TotalPayment";
 import { Header } from "components/organism/Layout";
 
 // material ui
@@ -12,6 +13,9 @@ const Home: NextPage = () => {
   return (
     <>
       <Header schoolName="San Miguel" />
+      <div>
+        <TotalPayment student={{}} total={0} />
+      </div>
       <div>
         <Accordion>
           <AccordionSummary
