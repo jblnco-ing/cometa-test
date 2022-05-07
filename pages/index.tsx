@@ -1,10 +1,12 @@
+// components
+import { Header } from "components/organism/Layout";
+
 // material ui
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // types
 import type { NextPage } from "next";
-import { Header } from "../src/components/organism/Layout";
 
 const Home: NextPage = () => {
   return (
