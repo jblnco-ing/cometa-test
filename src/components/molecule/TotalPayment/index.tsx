@@ -8,10 +8,10 @@ export const TotalPayment: FC<{ student: any; total: number}> = ({
   return (
     <div>
       <div>
-        {student.name}
-        {student.grade}
+        {`${student.first_name} ${student.last_name}`}
+        {student.cohort}
       </div>
-      <div>Total a pagar $ {total ? total : '--'}</div>
+      <div>Total a pagar $ {total || '--'}</div>
     </div>
   );
 };
