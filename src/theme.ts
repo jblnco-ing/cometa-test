@@ -5,14 +5,20 @@ import { red } from '@mui/material/colors';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#556cd6',
+      main: '#828282',
     },
     secondary: {
-      main: '#19857b',
+      main: '#B7B7B7',
     },
     error: {
       main: red.A400,
     },
+  },
+  typography: {
+    fontFamily: [
+      'Open Sans', 
+      'sans-serif',
+    ].join(','),
   },
 });
 
