@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // components
 import { TotalPayment } from "components/molecule/TotalPayment";
 import { Header } from "components/organism/Layout";
@@ -10,14 +12,19 @@ import type { NextPage } from "next";
 import * as studentService from "services/student";
 
 const Home: NextPage = ({ student, orders }: any) => {
-
+	const [total, setTotal] = useState(0)
+	
+	const sumOrSubtracTotal = (num: number, sum = false) => {
+		setTotal(sum ? (total + num) : (total - num))
+	}
+	
 	return (
 		<>
 			<Header schoolName={student?.school.name} />
 			<div>
-				<TotalPayment student={student} total={0} />
+				<TotalPayment student={student} total={total} />
 			</div>
-			<PayOrders orders={orders} />
+			<PayOrders orders={orders} onCheckedOrder={sumOrSubtracTotal} />
 		</>
 	);
 };
