@@ -9,7 +9,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // types
 import type { NextPage } from "next";
 
-const Home: NextPage = () => {
+//services
+import * as studentService from "services/student";
+
+const Home: NextPage = ({student}:any) => {
+	 
   return (
     <>
       <Header schoolName="San Miguel" />
@@ -52,4 +56,10 @@ const Home: NextPage = () => {
   );
 };
 
+export async function getServerSideProps() {
+	const testStudentId = '3b35fb50-3d5e-41b3-96d6-c5566141fab0'
+	const student = await studentService.find(testStudentId)
+	
+  return { props: { student } }
+}
 export default Home;
