@@ -3,58 +3,91 @@ import { PayOrderItem } from "components/atom/PayOrderItem";
 import { PayOrderList } from "components/molecule/PayOrderList";
 
 // types
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 
 // lib
 import dayjs from "lib/dayjs";
+import * as studentService from "services/student";
 
 export const PayOrders: FC<{
-  orders: any[];
   onCheckedOrder: CallableFunction;
-}> = ({ orders, onCheckedOrder }) => {
+  studentId: string;
+}> = ({ onCheckedOrder, studentId }) => {
   const ordersPaid: ReactNode[] = [];
   const ordersOutstanding: ReactNode[] = [];
   const ordersFuture: ReactNode[] = [];
 
-  const onChange = (num: number, checked: boolean) => {
-    onCheckedOrder(num, checked);
+  const [orders, setOrders] = useState<any[]>([]);
+
+  const getAndClassifyOrders = async (studentId:string) => {
+    const newOrders = await studentService.getOrders(studentId);
+    for (let index = 0; index < newOrders.length; index++) {
+      if (newOrders[index].status === "PAID") {
+        newOrders[index].type = "paid";
+      } else if (isSameOrAfterMonth(newOrders[index].due)) {
+        newOrders[index].type = "outstanding";
+      } else newOrders[index].type = "future";
+      newOrders[index].disableCheck = true;
+      newOrders[index].checked = false;
+    }
+    setOrders(newOrders);
   };
 
-  const setInPayOrderItem = (order: any, type: string, length: number) => (
-    <PayOrderItem
-      key={order.id}
-      order={order}
-      onChange={onChange}
-      type={type}
-      position={length}
-    />
-  );
+  const onChange = (num: number, checked: boolean, index: number) => {
+    onCheckedOrder(num, checked);
+    changeCheckNextAndPrevOrders(checked, index);
+  };
+
+  const changeCheckNextAndPrevOrders = (checked: boolean, index: number) => {
+    orders[index].checked = checked;
+    const nextIndex = index + 1;
+    const prevIndex = index - 1;
+    if (nextIndex < orders.length) orders[nextIndex].disableCheck = !checked;
+    if (prevIndex >= 0) orders[prevIndex].disableCheck = checked;
+    setOrders([...orders]);
+  };
+
+  const setInPayOrderItem = (order: any, index: number, length: number) => {
+    if (order.type === "outstanding" && length === 0 && !order.checked)
+      order.disableCheck = false;
+    return (
+      <PayOrderItem
+        key={order.id}
+        order={order}
+        onChange={(num: number, checked: boolean) => {
+          onChange(num, checked, index);
+        }}
+        type={order.type}
+        position={length}
+      />
+    );
+  };
 
   const isSameOrAfterMonth = (date: string) =>
     dayjs().isSameOrAfter(date, "month");
 
-  const getAndClassifyOrders = (data: any[]) => {
+  const distributeOrders = (data: any[]) => {
     for (let index = 0; index < data.length; index++) {
-      if (data[index].status === "PAID") {
+      if (data[index].type === "paid")
         ordersPaid.push(
-          setInPayOrderItem(data[index], "paid", ordersPaid.length)
+          setInPayOrderItem(data[index], index, ordersPaid.length)
         );
-      } else if (isSameOrAfterMonth(data[index].due)) {
+      if (data[index].type === "outstanding")
         ordersOutstanding.push(
-          setInPayOrderItem(
-            data[index],
-            "outstanding",
-            ordersOutstanding.length
-          )
+          setInPayOrderItem(data[index], index, ordersOutstanding.length)
         );
-      } else
+      if (data[index].type === "future")
         ordersFuture.push(
-          setInPayOrderItem(data[index], "future", ordersFuture.length)
+          setInPayOrderItem(data[index], index, ordersFuture.length)
         );
     }
   };
 
-  getAndClassifyOrders(orders);
+  useEffect(() => {
+    getAndClassifyOrders(studentId);
+  }, []);
+
+  distributeOrders(orders);
 
   return (
     <div>

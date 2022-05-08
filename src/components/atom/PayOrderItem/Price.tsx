@@ -66,7 +66,10 @@ export const Price: FC<{
         )}
       </Grid>
       <Grid item>
-        <Checkbox onChange={(_, checked) => onChange(finalPrice, checked)} />
+        <Checkbox
+          disabled={order.disableCheck}
+          onChange={(_, checked) => onChange(finalPrice, checked)}
+        />
       </Grid>
     </Grid>
   );

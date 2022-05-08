@@ -13,7 +13,8 @@ export const PayOrderItem: FC<{
   onChange: CallableFunction;
   type: string;
   position: number;
-}> = ({ order, onChange, type, position }) => {
+  enableCheck?: boolean;
+}> = ({ order, onChange, type, position, enableCheck }) => {
   const date = dayjs(order.due).format("D [de] MMM");
 
   const getDateText = () => {
@@ -28,10 +29,10 @@ export const PayOrderItem: FC<{
   };
 
   return (
-    <Grid container justifyContent='space-between' mb={2} >
+    <Grid container justifyContent="space-between" mb={2}>
       <Grid item>
-        <Typography variant="body2" >{order.name}</Typography>
-        <Typography variant="caption" >{getDateText()}</Typography>
+        <Typography variant="body2">{order.name}</Typography>
+        <Typography variant="caption">{getDateText()}</Typography>
       </Grid>
       <Grid item xs>
         <Price

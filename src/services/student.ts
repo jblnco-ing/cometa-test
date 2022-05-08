@@ -6,7 +6,7 @@ export const find = async (id: string) => {
   return res.data;
 };
 
-export const orders = async (id: string) => {
+export const getOrders = async (id: string) => {
   const res = await api.get<any[]>(`v1/students/${id}/orders`);
   return res.data;
 };
