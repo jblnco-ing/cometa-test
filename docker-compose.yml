@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    image: docker-cometa-dev
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - ./next.config.js:/app/next.config.js
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./pages:/app/pages
+      - ./public:/app/public
+      - ./src:/app/src
