@@ -1,9 +1,9 @@
-// types
-import { FC, ReactNode } from "react";
-
 // components
 import { PayOrderItem } from "components/atom/PayOrderItem";
 import { PayOrderList } from "components/molecule/PayOrderList";
+
+// types
+import { FC, ReactNode } from "react";
 
 // lib
 import dayjs from "lib/dayjs";
@@ -59,18 +59,22 @@ export const PayOrders: FC<{
   return (
     <div>
       <PayOrderList
+        Expanded={false}
         orderTypeName="Cuotas Pagadas"
         helpText="Dale click para expandir"
       >
         {ordersPaid}
       </PayOrderList>
       <PayOrderList
+        Expanded={true}
         orderTypeName="Cuotas Pendientes"
         helpText="Puedes seleccionar mas de uno"
       >
         {ordersOutstanding}
       </PayOrderList>
-      <PayOrderList orderTypeName="Cuotas Futuras">{ordersFuture}</PayOrderList>
+      <PayOrderList Expanded={true} orderTypeName="Cuotas Futuras">
+        {ordersFuture}
+      </PayOrderList>
     </div>
   );
 };

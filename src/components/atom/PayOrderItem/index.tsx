@@ -1,8 +1,8 @@
-// types
-import { FC } from "react";
-
 // components
 import { Price } from "./Price";
+
+// types
+import { FC } from "react";
 
 // lib
 import dayjs from "lib/dayjs";
@@ -33,7 +33,7 @@ export const PayOrderItem: FC<{
         <Typography variant="body2" >{order.name}</Typography>
         <Typography variant="caption" >{getDateText()}</Typography>
       </Grid>
-      <Grid item>
+      <Grid item xs>
         <Price
           order={order}
           type={type}

@@ -11,12 +11,13 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const PayOrderList: FC<{
+  Expanded: boolean;
   helpText?: string;
   orderTypeName: string;
   children?: ReactNode[];
-}> = ({ helpText, orderTypeName, children }) => {
+}> = ({ Expanded, helpText, orderTypeName, children }) => {
   return (
-    <Accordion>
+    <Accordion defaultExpanded={Expanded}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <div>
 					<Typography variant="subtitle2" fontWeight='bold' >
