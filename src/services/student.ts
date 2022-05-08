@@ -1,4 +1,4 @@
-//lib
+// lib
 import api from "lib/api";
 
 export const find = async (id: string) => {
