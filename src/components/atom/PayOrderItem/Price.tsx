@@ -3,7 +3,7 @@ import { FC } from "react";
 
 // components
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Checkbox, IconButton } from "@mui/material";
+import { Checkbox, Grid, IconButton, Typography } from "@mui/material";
 
 // lib
 import currency from "currency.js";
@@ -35,11 +35,17 @@ export const Price: FC<{
 
   return (
     <>
-      {isEarn && <span>{currency(finalPrice).format()}</span>}
-      <span>{decPrice.format()}</span>
-      {isDue && <span>{`Interés: ${currency(order.interest).format()}`}</span>}
-      {isEarn && <span>{`Ahorras: ${currency(discount || 0).format()}`}</span>}
-      <Checkbox onChange={(_, checked) => onChange(finalPrice, checked)} />
+		<Grid container>
+			<Grid item>
+				{isEarn && <Typography>{currency(finalPrice).format()}</Typography>}
+				<Typography variant="body2" >{decPrice.format()}</Typography>
+				{isDue && <Typography variant="caption" >{`Interés: ${currency(order.interest).format()}`}</Typography>}
+				{isEarn && <Typography variant="caption">{`Ahorras: ${currency(discount || 0).format()}`}</Typography>}
+			</Grid>
+			<Grid item>
+      	<Checkbox onChange={(_, checked) => onChange(finalPrice, checked)} />
+			</Grid>
+		</Grid>
     </>
   );
 };

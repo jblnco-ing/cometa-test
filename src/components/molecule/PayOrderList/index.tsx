@@ -18,10 +18,14 @@ export const PayOrderList: FC<{
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography sx={{ width: "33%", flexShrink: 0 }}>
-          {orderTypeName}
-        </Typography>
-        <Typography sx={{ color: "text.secondary" }}>{helpText}</Typography>
+        <div>
+					<Typography variant="subtitle2" fontWeight='bold' >
+						{orderTypeName}<br/>
+					</Typography>
+					<Typography variant="caption" color='secondary' >
+						{helpText}
+					</Typography>
+				</div>
       </AccordionSummary>
       <AccordionDetails>
         {children?.length ? children : "Sin Cuotas"}

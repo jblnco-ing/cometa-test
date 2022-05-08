@@ -6,6 +6,7 @@ import { Price } from "./Price";
 
 // lib
 import dayjs from "lib/dayjs";
+import { Grid, Typography } from "@mui/material";
 
 export const PayOrderItem: FC<{
   order: any;
@@ -27,12 +28,12 @@ export const PayOrderItem: FC<{
   };
 
   return (
-    <div>
-      <div>
-        <p>{order.name}</p>
-        <span>{getDateText()}</span>
-      </div>
-      <div>
+    <Grid container justifyContent='space-between' mb={2} >
+      <Grid item>
+        <Typography variant="body2" >{order.name}</Typography>
+        <Typography variant="caption" >{getDateText()}</Typography>
+      </Grid>
+      <Grid item>
         <Price
           order={order}
           type={type}
@@ -40,7 +41,7 @@ export const PayOrderItem: FC<{
           onChange={onChange}
           discount={100}
         />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };

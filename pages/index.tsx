@@ -4,7 +4,13 @@ import { useState } from "react";
 import { TotalPayment } from "components/molecule/TotalPayment";
 import { Header } from "components/organism/Layout";
 import { PayOrders } from "components/organism/PayOrders";
+
+// material
+import { Container, Zoom } from "@mui/material";
 import Fab from "@mui/material/Fab";
+
+// styles
+import classes from "styles/Home/homePage.module.scss";
 
 // types
 import type { NextPage } from "next";
@@ -29,22 +35,21 @@ const Home: NextPage = ({ student, orders }: any) => {
   return (
     <>
       <Header schoolName={student?.school.name} />
-      <div>
-        <TotalPayment student={student} total={total} />
-      </div>
-      <PayOrders orders={orders} onCheckedOrder={sumOrSubtracTotal} />
-      {!!total && (
-        <Fab
-          variant="extended"
-          style={{
-            position: "absolute",
-            bottom: 0,
-            right: 16,
-          }}
-        >
-          IR A PAGAR
-        </Fab>
-      )}
+			<Container maxWidth="sm">
+				<div className={classes.col}>
+					<TotalPayment student={student} total={total} />
+				</div>
+				<div className={classes.col}>
+					<PayOrders orders={orders} onCheckedOrder={sumOrSubtracTotal} />
+				</div>
+			</Container>
+			<Container maxWidth="sm" className={classes.container}>
+				{!!total && (
+					<Fab className={classes.fab} variant="extended">
+						IR A PAGAR
+					</Fab>
+				)}
+			</Container>
     </>
   );
 };

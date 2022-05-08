@@ -1,0 +1,21 @@
+@import '../variables.scss';
+
+.col {
+	margin: 0.5rem;
+}
+
+.container {
+	left: 0;
+	right: 0;
+	bottom: 10px;
+	position: fixed;
+	padding: 0 3rem;
+	.fab {
+		width: 100%;
+		color: $white;
+		background-color: $black;
+		&:hover {
+			background-color: $secondary;
+		}
+	}
+}
