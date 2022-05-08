@@ -1,34 +1,42 @@
 // types
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
-//components
+// components
 import { PayOrderItem } from "components/atom/PayOrderItem";
 import { PayOrderList } from "components/molecule/PayOrderList";
 
-//lib
+// lib
 import dayjs from 'lib/dayjs'
 
 export const PayOrders: FC<{ orders: any[], onCheckedOrder: CallableFunction }> = ({ orders, onCheckedOrder }) => {
 
-	const classifiedOrders: any = {
-		ordersPaid: [],
-		ordersOutstanding: [],
-		ordersFuture: []
-	}
+	const ordersPaid: ReactNode[] = []
+	const ordersOutstanding: ReactNode[] = []
+	const ordersFuture: ReactNode[] = []
 
 	const onChange = (num: number, checked: boolean) => {
 		onCheckedOrder(num, checked)
 	}
-	const setInPayOrderItem = (order: any) => <PayOrderItem key={order.id} order={order} onChange={onChange} />
+
+	const setInPayOrderItem = (order: any, type: string, length: number) => (
+    <PayOrderItem
+      key={order.id}
+      order={order}
+      onChange={onChange}
+      type={type}
+      position={length}
+    />
+  );
+
 	const isSameOrAfterMonth = (date: string) => dayjs().isSameOrAfter(date, 'month')
 
 	const getAndClassifyOrders = (data: any[]) => {
 		for (let index = 0; index < data.length; index++) {
 			if (data[index].status === 'PAID') {
-				classifiedOrders.ordersPaid.push(setInPayOrderItem(data[index]))
+				ordersPaid.push(setInPayOrderItem(data[index],'paid', ordersPaid.length))
 			} else if (isSameOrAfterMonth(data[index].due)) {
-				classifiedOrders.ordersOutstanding.push(setInPayOrderItem(data[index]))
-			} else classifiedOrders.ordersFuture.push(setInPayOrderItem(data[index]))
+				ordersOutstanding.push(setInPayOrderItem(data[index], 'outstanding', ordersOutstanding.length))
+			} else ordersFuture.push(setInPayOrderItem(data[index],'future',ordersFuture.length))
 		}
 	}
 
@@ -36,14 +44,14 @@ export const PayOrders: FC<{ orders: any[], onCheckedOrder: CallableFunction }> 
 
 	return (
 		<div>
-			<PayOrderList orderTypeName="Cuotas Pagadas">
-				{classifiedOrders.ordersPaid}
+			<PayOrderList orderTypeName="Cuotas Pagadas" helpText="Dale click para expandir">
+				{ordersPaid}
 			</PayOrderList>
-			<PayOrderList orderTypeName="Cuotas Pendientes">
-				{classifiedOrders.ordersOutstanding}
+			<PayOrderList orderTypeName="Cuotas Pendientes" helpText="Puedes seleccionar mas de uno">
+				{ordersOutstanding}
 			</PayOrderList>
 			<PayOrderList orderTypeName="Cuotas Futuras">
-				{classifiedOrders.ordersFuture}
+				{ordersFuture}
 			</PayOrderList>
 		</div>
 	);
