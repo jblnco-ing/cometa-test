@@ -1,34 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Frontend Challenge
 
-## Getting Started
+## _Cometa Test_
 
-First, run the development server:
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-```bash
-npm run dev
-# or
+Cometa Test es una aplicación web donde un padre de familia puede ver el status de las mensualidades/colegiaturas de su hijo/hija.
+
+## Features
+
+- Revise las cuotas pagadas, pendientes y futuras
+- seleccione la cuota o cuotas pagar
+- Revise el total a pagar
+
+## Tech
+
+Cometa Test utiliza una serie de tecnologías de código abierto para funcionar correctamente:
+
+- [NextJs](https://nextjs.org)
+- [MUI](https://mui.com)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [SASS](https://sass-lang.com)
+- [Dayjs](https://day.js.org)
+- [Currency.js](https://currency.js.org)
+
+## Instalación
+
+Cometa Test requiere [Node.js](https://nodejs.org/) v10+ para funcionar.
+
+## Empezando
+
+Instala las dependencias y arranca el servidor.
+Con [yarn](https://yarnpkg.com):
+
+```sh
+cd cometa-test
+yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Crea las variables de entorno a partir del env.example
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```sh
+cp env.example .env.local
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Ejecuta el modo desarrollo
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```sh
+yarn dev
+```
 
-## Learn More
+Abre [http://localhost:3000](http://localhost:3000) en el navegador
 
-To learn more about Next.js, take a look at the following resources:
+## Docker
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Cometa Test es muy fácil de instalar y desplegar en un contenedor Docker usando docker-compose.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Por defecto, el Docker expondrá el puerto 3000, así que cambia esto dentro del Dockerfile si es necesario. Cuando esté listo, simplemente use el script para construir y desplegar el contendor.
 
-## Deploy on Vercel
+#### desarrollo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+yarn dev:up
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### producción
+
+```sh
+yarn prod:up
+```
+
+Abre [http://localhost:3000](http://localhost:3000) en el navegador
+
+# Demo en vivo
+
+Puede usar el sistema en [cometa-test.herokuapp](https://cometa-test.herokuapp.com)
+
+# Repositorio
+
+[github.com/jblnco-ing/cometa-test](https://github.com/jblnco-ing/cometa-test)
