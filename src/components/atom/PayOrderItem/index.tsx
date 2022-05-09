@@ -1,29 +1,29 @@
 // components
 import { Price } from "./Price";
+import { Grid, Typography } from "@mui/material";
 
 // types
 import { FC } from "react";
 
 // lib
 import dayjs from "lib/dayjs";
-import { Grid, Typography } from "@mui/material";
 
 export const PayOrderItem: FC<{
   order: any;
   onChange: CallableFunction;
-  type: string;
   position: number;
   enableCheck?: boolean;
-}> = ({ order, onChange, type, position, enableCheck }) => {
+}> = ({ order, onChange, position }) => {
   const date = dayjs(order.due).format("D [de] MMM");
 
   const getDateText = () => {
-    if (type === "paid") return `Pagado el ${date}`;
+    if (order.type === "paid") return `Pagado el ${date}`;
 
-    if (type === "future") if (position !== 0) return `Ahorra hasta el ${date}`;
+    if (order.type === "future" && position !== 0)
+      return `Ahorra hasta el ${date}`;
 
-    if (type === "outstanding")
-      if (order.status === "DUE") return `Vencido el ${date}`;
+    if (order.type === "outstanding" && order.status === "DUE")
+      return `Vencido el ${date}`;
 
     return `Vence el ${date}`;
   };
@@ -37,7 +37,6 @@ export const PayOrderItem: FC<{
       <Grid item xs>
         <Price
           order={order}
-          type={type}
           position={position}
           onChange={onChange}
           discount={100}

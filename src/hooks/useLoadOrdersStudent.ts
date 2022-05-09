@@ -1,4 +1,7 @@
+//lib
 import dayjs from "dayjs";
+
+//hook
 import { useEffect, useState } from "react";
 import * as studentService from "services/student";
 
@@ -33,5 +36,5 @@ export const useLoadOrdersStudent = (studentId: string) => {
     getAndClassifyOrders(studentId);
   }, [studentId]);
 
-  return {orders, changeCheckNextAndPrevOrders};
+  return { orders, changeCheckNextAndPrevOrders };
 };

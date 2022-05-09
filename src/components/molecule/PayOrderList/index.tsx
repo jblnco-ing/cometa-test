@@ -20,13 +20,14 @@ export const PayOrderList: FC<{
     <Accordion defaultExpanded={Expanded}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <div>
-					<Typography variant="subtitle2" fontWeight='bold' >
-						{orderTypeName}<br/>
-					</Typography>
-					<Typography variant="caption" color='secondary' >
-						{helpText}
-					</Typography>
-				</div>
+          <Typography variant="subtitle2" fontWeight="bold">
+            {orderTypeName}
+            <br />
+          </Typography>
+          <Typography variant="caption" color="secondary">
+            {helpText}
+          </Typography>
+        </div>
       </AccordionSummary>
       <AccordionDetails>
         {children?.length ? children : "Sin Cuotas"}

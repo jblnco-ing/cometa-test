@@ -10,20 +10,27 @@ import currency from "currency.js";
 
 export const Price: FC<{
   order: any;
-  type: string;
   position: number;
   discount?: number;
   onChange: CallableFunction;
-}> = ({ order, type, position, discount, onChange }) => {
-  if (type === "paid")
+}> = ({ order, position, discount, onChange }) => {
+  if (order.type === "paid")
     return (
-      <IconButton color="primary" aria-label="mostrar pago" component="span">
-        <ArrowForwardIosIcon />
-      </IconButton>
+      <Grid container justifyContent="end" alignItems="center" textAlign="end">
+        <Grid item>
+          <IconButton
+            color="primary"
+            aria-label="mostrar pago"
+            component="span"
+          >
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
     );
 
   const isDue = order.status === "DUE";
-  const isEarn = type === "future" && position !== 0;
+  const isEarn = order.type === "future" && position !== 0;
   const decPrice = currency(order.price);
 
   const getFinalPrice = () => {

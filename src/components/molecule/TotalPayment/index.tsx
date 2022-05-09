@@ -18,22 +18,22 @@ export const TotalPayment: FC<{ student: any; total: number }> = ({
     <Box className={classes.container}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
-					<Typography variant="caption">
-						{`${student.first_name} ${student.last_name}`}
-					</Typography>
-				</Grid>
-				<Grid item xs={6} textAlign='end' >
-					<Typography variant="caption">{student.cohort}</Typography>
-				</Grid>
-				<Grid item xs={6}>
-					<Typography variant="body2">Total a pagar</Typography>
-				</Grid>
-				<Grid item xs={6}>
-					<Typography variant="body2" textAlign='end'>
-						{total ? currency(total).format() : "$ --"}
-					</Typography>
-				</Grid>
-			</Grid>
+          <Typography variant="caption">
+            {`${student.first_name} ${student.last_name}`}
+          </Typography>
+        </Grid>
+        <Grid item xs={6} textAlign="end">
+          <Typography variant="caption">{student.cohort}</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography variant="body2">Total a pagar</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography variant="body2" textAlign="end">
+            {total ? currency(total).format() : "$ --"}
+          </Typography>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

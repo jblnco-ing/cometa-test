@@ -22,7 +22,7 @@ import * as studentService from "services/student";
 // lib
 import currency from "currency.js";
 
-const Home: NextPage = ({ student, orders }: any) => {
+const Home: NextPage = ({ student }: any) => {
   const [total, setTotal] = useState(0);
 
   const sumOrSubtracTotal = (num: number, isSum = false) => {
@@ -41,7 +41,10 @@ const Home: NextPage = ({ student, orders }: any) => {
           <TotalPayment student={student} total={total} />
         </div>
         <div className={classes.col}>
-          <PayOrders studentId={student.id} onCheckedOrder={sumOrSubtracTotal} />
+          <PayOrders
+            studentId={student.id}
+            onCheckedOrder={sumOrSubtracTotal}
+          />
         </div>
       </Container>
       <Container maxWidth="sm" className={classes.container}>
