@@ -4,6 +4,9 @@ import createEmotionCache from "createEmotionCache";
 import { AppProps } from "next/app";
 import * as React from "react";
 import Head from "next/head";
+import { hotjar } from 'react-hotjar'
+
+import { useEffect } from 'react'
 
 // material ui
 import { ThemeProvider } from "@mui/material/styles";
@@ -20,7 +23,13 @@ interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
+	const hjid = parseInt(process.env.NEXT_PUBLIC_HJID||'')
+	const hjsv = parseInt(process.env.NEXT_PUBLIC_HJSV||'')
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+	useEffect(() => {
+		hotjar.initialize(hjid, hjsv)
+	}, [])
   return (
     <CacheProvider value={emotionCache}>
       <Head>

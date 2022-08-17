@@ -22,46 +22,27 @@ import * as studentService from "services/student";
 // lib
 import currency from "currency.js";
 
-const Home: NextPage = ({ student }: any) => {
-  const [total, setTotal] = useState(0);
-
-  const sumOrSubtracTotal = (num: number, isSum = false) => {
-    setTotal(
-      isSum
-        ? currency(total).add(num).value
-        : currency(total).subtract(num).value
-    );
-  };
+const Home: NextPage = () => {
+  
 
   return (
     <>
-      <Header schoolName={student?.school.name} />
+      <Header schoolName='Pepe' />
       <Container maxWidth="sm">
         <div className={classes.col}>
-          <TotalPayment student={student} total={total} />
+          QUE hace
         </div>
         <div className={classes.col}>
-          <PayOrders
-            studentId={student.id}
-            onCheckedOrder={sumOrSubtracTotal}
-          />
+          HOLa
         </div>
       </Container>
       <Container maxWidth="sm" className={classes.container}>
-        {!!total && (
           <Fab className={classes.fab} variant="extended">
             IR A PAGAR
           </Fab>
-        )}
       </Container>
     </>
   );
 };
 
-export async function getServerSideProps() {
-  const testStudentId = "3b35fb50-3d5e-41b3-96d6-c5566141fab0";
-  const student = await studentService.find(testStudentId);
-
-  return { props: { student } };
-}
 export default Home;
